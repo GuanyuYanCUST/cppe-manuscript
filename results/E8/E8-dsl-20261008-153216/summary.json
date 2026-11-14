@@ -1,0 +1,256 @@
+{
+  "run_id": "E8-dsl-20261008-153216",
+  "published_reference": {
+    "A": {
+      "1": "20.0%",
+      "2": "52.0%",
+      "3": "79.2%",
+      "4": "92.3%",
+      "5": "97.4%",
+      "6": "99.1%",
+      "7": "99.7%",
+      "8": "99.9%"
+    },
+    "B": {
+      "1": "40.0%",
+      "2": "64.0%",
+      "3": "78.4%",
+      "4": "87.2%",
+      "5": "92.6%",
+      "6": "95.8%"
+    }
+  },
+  "note": "published values are shown for comparison only; every number below is measured in this run",
+  "A": {
+    "state_space": {
+      "reachable_rule_states": 275,
+      "grid_corpus": 1024,
+      "per_step_moves": 5
+    },
+    "table": [
+      {
+        "length": 1,
+        "histories": 5,
+        "reuse_unsafe": 1,
+        "reuse_unsafe_pct": 20.0,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 2,
+        "histories": 25,
+        "reuse_unsafe": 13,
+        "reuse_unsafe_pct": 52.0,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 3,
+        "histories": 125,
+        "reuse_unsafe": 99,
+        "reuse_unsafe_pct": 79.2,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 4,
+        "histories": 625,
+        "reuse_unsafe": 577,
+        "reuse_unsafe_pct": 92.3,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 5,
+        "histories": 3125,
+        "reuse_unsafe": 3043,
+        "reuse_unsafe_pct": 97.4,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 6,
+        "histories": 15625,
+        "reuse_unsafe": 15489,
+        "reuse_unsafe_pct": 99.1,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 7,
+        "histories": 78125,
+        "reuse_unsafe": 77899,
+        "reuse_unsafe_pct": 99.7,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 8,
+        "histories": 390625,
+        "reuse_unsafe": 390241,
+        "reuse_unsafe_pct": 99.9,
+        "pg_unsafe": 0
+      }
+    ],
+    "matches_published_table": true,
+    "pg": {
+      "paths": 390625,
+      "mean_accepted_events_before_first_rejection": 1.6036,
+      "mean_distinct_new_rules_before_first_rejection": 1.0,
+      "paths_with_evac_clause_accepted_before_rejection": 0,
+      "evac_move_is_always_contained": null,
+      "pg_unsafe_installs": 0
+    },
+    "differential": {
+      "corpus_size": 1318,
+      "reachable_states": 294,
+      "mismatches": [],
+      "mismatch_count": 0
+    },
+    "benchmark_us_per_check": {
+      "verifier": {
+        "us_per_check": 0.137
+      },
+      "oracle": {
+        "us_per_check": 0.388
+      }
+    },
+    "first_unsafe_witness": {
+      "rule": "(6, 6, True, 4)",
+      "contained": false,
+      "witness": "(6, 6, 1)"
+    },
+    "enumerate_runtime_s": 0.001
+  },
+  "B": {
+    "state_space": {
+      "reachable_rule_states": 44,
+      "grid_corpus": 167,
+      "per_step_moves": 5
+    },
+    "table": [
+      {
+        "length": 1,
+        "histories": 5,
+        "reuse_unsafe": 2,
+        "reuse_unsafe_pct": 40.0,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 2,
+        "histories": 25,
+        "reuse_unsafe": 16,
+        "reuse_unsafe_pct": 64.0,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 3,
+        "histories": 125,
+        "reuse_unsafe": 98,
+        "reuse_unsafe_pct": 78.4,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 4,
+        "histories": 625,
+        "reuse_unsafe": 545,
+        "reuse_unsafe_pct": 87.2,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 5,
+        "histories": 3125,
+        "reuse_unsafe": 2893,
+        "reuse_unsafe_pct": 92.6,
+        "pg_unsafe": 0
+      },
+      {
+        "length": 6,
+        "histories": 15625,
+        "reuse_unsafe": 14969,
+        "reuse_unsafe_pct": 95.8,
+        "pg_unsafe": 0
+      }
+    ],
+    "matches_published_table": true,
+    "pg": {
+      "paths": 15625,
+      "mean_accepted_events_before_first_rejection": 1.4202,
+      "mean_distinct_new_rules_before_first_rejection": 0.8002,
+      "paths_with_evac_clause_accepted_before_rejection": 5176,
+      "evac_move_is_always_contained": true,
+      "pg_unsafe_installs": 0
+    },
+    "differential": {
+      "corpus_size": 239,
+      "reachable_states": 72,
+      "mismatches": [],
+      "mismatch_count": 0
+    },
+    "benchmark_us_per_check": {
+      "verifier": {
+        "us_per_check": 23.871
+      },
+      "oracle": {
+        "us_per_check": 15.39
+      }
+    },
+    "first_unsafe_witness": {
+      "rule": "({'pressureStable': 1, 'tox_bound': 3},)",
+      "contained": false,
+      "witness": "((0, 1, 0, 0), 0)"
+    },
+    "enumerate_runtime_s": 0.002
+  },
+  "mutation_testing": {
+    "a_strict_inequality": {
+      "mismatched_rules": 135,
+      "caught": true,
+      "examples": [
+        "(6, 6, True, 3)",
+        "(5, 6, True, 3)"
+      ],
+      "corpus": "reachable+grid"
+    },
+    "a_scope_widening": {
+      "mismatched_rules": 171,
+      "caught": true,
+      "examples": [
+        "(6, 6, True, 4)",
+        "(5, 6, True, 4)"
+      ],
+      "corpus": "reachable+grid"
+    },
+    "b_missing_conjunct": {
+      "mismatched_rules": 29,
+      "caught": true,
+      "examples": [
+        "({'smoke': 1, 'tox_bound': 3},)",
+        "({'smoke': 1, 'tox_bound': 3}, {'evac': 1, 'backupVent': 1, 'tox_bound': 8})"
+      ],
+      "corpus": "reachable+grid"
+    },
+    "b_wrong_disjunction": {
+      "mismatched_rules": 60,
+      "caught": true,
+      "examples": [
+        "({'smoke': 1, 'pressureStable': 1, 'tox_bound': 3},)",
+        "({'smoke': 1, 'pressureStable': 1, 'tox_bound': 4},)"
+      ],
+      "corpus": "reachable+grid"
+    },
+    "b_tox_strict": {
+      "mismatched_rules": 17,
+      "caught": true,
+      "examples": [
+        "({'smoke': 1, 'pressureStable': 1, 'tox_bound': 7}, {'evac': 1, 'backupVent': 1, 'tox_bound': 8})",
+        "({'smoke': 1, 'pressureStable': 1, 'tox_bound': 7},)"
+      ],
+      "corpus": "reachable+grid"
+    },
+    "stale_root_version": {
+      "caught": true,
+      "outcome": "STALE_EPOCH",
+      "mismatched_rules": 1
+    },
+    "bad_issuer": {
+      "caught": true,
+      "outcome": "BAD_ISSUER",
+      "mismatched_rules": 1
+    }
+  },
+  "all_checks_passed": true
+}

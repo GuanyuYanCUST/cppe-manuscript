@@ -1,0 +1,580 @@
+{
+  "run_id": "E7-ablation-20261008-155656",
+  "domains": [
+    "cloudops",
+    "procurement",
+    "finance",
+    "dataaccess"
+  ],
+  "attacks": {
+    "A1_issuer_typing": "A1: present a genuine casesvc CASE as the install credential for a",
+    "A2_containment": "A2: valid root cap, out-of-envelope rule.",
+    "A3_necessity": "A3: unnecessary exception — a valid CASE for a protected action",
+    "A4_epoch_cas": "A4a: stale-epoch cap after ROTATE.  A4b: install prepared under the",
+    "A5_replay": "A5: execute the same one-shot CASE twice.",
+    "A6_llm_only_judge": "A6: heuristic 'looks narrow' judge replaces the containment proof."
+  },
+  "results": {
+    "cloudops": {
+      "A1_issuer_typing": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "TYPE_CONFUSION_CASE_AS_PRECEDENT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A2_containment": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A3_necessity": {
+        "outcomes": {
+          "full": {
+            "decision": "DENY",
+            "reason": "NECESSITY_BETTER_PLAN_EXISTS",
+            "unnecessary_exception_admitted": false
+          },
+          "ablated": {
+            "decision": "ADMIT_CASE",
+            "reason": "case:C-E7-nec-ablated",
+            "unnecessary_exception_admitted": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A4_epoch_cas": {
+        "outcomes": {
+          "stale_epoch": {
+            "full": {
+              "install": false,
+              "reason": "STALE_EPOCH"
+            },
+            "ablated": {
+              "install": true,
+              "reason": ""
+            }
+          },
+          "post_amend_cas": {
+            "full": {
+              "install": false,
+              "reason": "OUT_OF_ROOT",
+              "effect": false
+            },
+            "ablated": {
+              "install": true,
+              "reason": "",
+              "effect": true
+            }
+          }
+        },
+        "penetration": {
+          "stale_epoch": true,
+          "post_amend_cas": true
+        },
+        "passed": true
+      },
+      "A5_replay": {
+        "outcomes": {
+          "full": {
+            "first": "ADMIT_CASE",
+            "second": "DENY",
+            "second_reason": "REPLAY",
+            "replayed_effect": false
+          },
+          "ablated": {
+            "first": "ADMIT_CASE",
+            "second": "ADMIT_CASE",
+            "second_reason": "case:C-E7-rp-ablated",
+            "replayed_effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A6_llm_only_judge": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      }
+    },
+    "procurement": {
+      "A1_issuer_typing": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "TYPE_CONFUSION_CASE_AS_PRECEDENT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A2_containment": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A3_necessity": {
+        "outcomes": {
+          "full": {
+            "decision": "DENY",
+            "reason": "NECESSITY_BETTER_PLAN_EXISTS",
+            "unnecessary_exception_admitted": false
+          },
+          "ablated": {
+            "decision": "ADMIT_CASE",
+            "reason": "case:C-E7-nec-ablated",
+            "unnecessary_exception_admitted": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A4_epoch_cas": {
+        "outcomes": {
+          "stale_epoch": {
+            "full": {
+              "install": false,
+              "reason": "STALE_EPOCH"
+            },
+            "ablated": {
+              "install": true,
+              "reason": ""
+            }
+          },
+          "post_amend_cas": {
+            "full": {
+              "install": false,
+              "reason": "OUT_OF_ROOT",
+              "effect": false
+            },
+            "ablated": {
+              "install": true,
+              "reason": "",
+              "effect": true
+            }
+          }
+        },
+        "penetration": {
+          "stale_epoch": true,
+          "post_amend_cas": true
+        },
+        "passed": true
+      },
+      "A5_replay": {
+        "outcomes": {
+          "full": {
+            "first": "ADMIT_CASE",
+            "second": "DENY",
+            "second_reason": "REPLAY",
+            "replayed_effect": false
+          },
+          "ablated": {
+            "first": "ADMIT_CASE",
+            "second": "ADMIT_CASE",
+            "second_reason": "case:C-E7-rp-ablated",
+            "replayed_effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A6_llm_only_judge": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      }
+    },
+    "finance": {
+      "A1_issuer_typing": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "TYPE_CONFUSION_CASE_AS_PRECEDENT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A2_containment": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A3_necessity": {
+        "outcomes": {
+          "full": {
+            "decision": "DENY",
+            "reason": "NECESSITY_BETTER_PLAN_EXISTS",
+            "unnecessary_exception_admitted": false
+          },
+          "ablated": {
+            "decision": "ADMIT_CASE",
+            "reason": "case:C-E7-nec-ablated",
+            "unnecessary_exception_admitted": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A4_epoch_cas": {
+        "outcomes": {
+          "stale_epoch": {
+            "full": {
+              "install": false,
+              "reason": "STALE_EPOCH"
+            },
+            "ablated": {
+              "install": true,
+              "reason": ""
+            }
+          },
+          "post_amend_cas": {
+            "full": {
+              "install": false,
+              "reason": "OUT_OF_ROOT",
+              "effect": false
+            },
+            "ablated": {
+              "install": true,
+              "reason": "",
+              "effect": true
+            }
+          }
+        },
+        "penetration": {
+          "stale_epoch": true,
+          "post_amend_cas": true
+        },
+        "passed": true
+      },
+      "A5_replay": {
+        "outcomes": {
+          "full": {
+            "first": "ADMIT_CASE",
+            "second": "DENY",
+            "second_reason": "REPLAY",
+            "replayed_effect": false
+          },
+          "ablated": {
+            "first": "ADMIT_CASE",
+            "second": "ADMIT_CASE",
+            "second_reason": "case:C-E7-rp-ablated",
+            "replayed_effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A6_llm_only_judge": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      }
+    },
+    "dataaccess": {
+      "A1_issuer_typing": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "TYPE_CONFUSION_CASE_AS_PRECEDENT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A2_containment": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A3_necessity": {
+        "outcomes": {
+          "full": {
+            "decision": "DENY",
+            "reason": "NECESSITY_BETTER_PLAN_EXISTS",
+            "unnecessary_exception_admitted": false
+          },
+          "ablated": {
+            "decision": "ADMIT_CASE",
+            "reason": "case:C-E7-nec-ablated",
+            "unnecessary_exception_admitted": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A4_epoch_cas": {
+        "outcomes": {
+          "stale_epoch": {
+            "full": {
+              "install": false,
+              "reason": "STALE_EPOCH"
+            },
+            "ablated": {
+              "install": true,
+              "reason": ""
+            }
+          },
+          "post_amend_cas": {
+            "full": {
+              "install": false,
+              "reason": "OUT_OF_ROOT",
+              "effect": false
+            },
+            "ablated": {
+              "install": true,
+              "reason": "",
+              "effect": true
+            }
+          }
+        },
+        "penetration": {
+          "stale_epoch": true,
+          "post_amend_cas": true
+        },
+        "passed": true
+      },
+      "A5_replay": {
+        "outcomes": {
+          "full": {
+            "first": "ADMIT_CASE",
+            "second": "DENY",
+            "second_reason": "REPLAY",
+            "replayed_effect": false
+          },
+          "ablated": {
+            "first": "ADMIT_CASE",
+            "second": "ADMIT_CASE",
+            "second_reason": "case:C-E7-rp-ablated",
+            "replayed_effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      },
+      "A6_llm_only_judge": {
+        "outcomes": {
+          "full": {
+            "install": false,
+            "reason": "OUT_OF_ROOT",
+            "effect": false
+          },
+          "ablated": {
+            "install": true,
+            "reason": "",
+            "effect": true
+          }
+        },
+        "penetration": {
+          "penetrated": {
+            "full": false,
+            "ablated": true
+          }
+        },
+        "passed": true
+      }
+    }
+  },
+  "all_attacks_penetrate_only_under_ablation": true
+}

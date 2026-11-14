@@ -1,0 +1,1359 @@
+=== PAGE 1 ===
+No Precedent Without Power:
+Preventing Exception Ratcheting in Learning Agents
+Abstract
+A system may be authorized to decide an exceptional case without being authorized to turn that decision into law. Learning agents
+blur this boundary in a way ordinary access control does not capture: a case-specific exception can be valid, safe, and operationally
+successful; the learner can retain that success; and a later policy or retrieval path can generalize it into a reusable rule even though
+no rulemaking authority was ever exercised. We call this exception ratcheting: learning-induced expansion of standing normative
+authority without an authorized normative transition.
+We separate three powers that must not be inferred from one another: CASE, authority to approve one bounded exception;
+PRECEDENT , authority to install a reusable class of future exceptions; and AMEND , authority to widen the governing discretion
+envelope itself. We give an operational definition of ratcheting through an explicit STANDING REGION , specify a labeled transition
+system over normative state, and prove a normative authority confinement invariant from which no-self-ratification and root-
+envelope preservation follow. We also characterize exactly when outcome-only generalization can be both sound and complete
+via root-observation sufficiency: success history may inform what the learner proposes, but it cannot substitute for the root-bound
+information needed to justify standing authority.
+We realize this boundary in PRECEDENT GUARD , a reference-monitor architecture with typed CASE/PRECEDENT /AMEND
+capabilities, proof-carrying discretion, a counterfactual challenger for necessity claims, and certified precedent refinement. The
+design intentionally permits learning: successful cases may improve planning and may suggest candidate precedents. What they
+cannot do is ratify themselves. We implement two structurally different containment verifiers—a monotone threshold DSL and a
+non-monotone disjunctive DSL—and obtain zero unsafe installations across exhaustive adversarial generalization traces (390,625
+and 15,625 histories). Across challenger-model corruption levels from 0% to 40% spurious edges, unsafe admission remains 0.0%
+while conservative false rejection rises from 0% to 60.2%; under a deliberate 20× overload, the bounded challenger fails closed
+rather than admitting unsupported exceptions. The resulting security principle is simple: learn how to succeed; do not learn yourself
+into legislative authority.
+1. Introduction
+A successful exception is still only an exception. Suppose a
+policy explicitly delegates authority to decide difficult cases
+inside a bounded discretion envelope. A learner uses that
+discretion once, the action works, and the successful trajectory
+becomes part of memory, training data, or a reusable skill. The
+next case is similar. The learner generalizes. After enough
+successful reuse, behavior that began as a one-shot exception
+can be treated as a standing rule—without any credential theft,
+policy-file modification, or explicit exercise of rulemaking
+power.
+The security failure is subtle because every local step can
+look legitimate. The original case was authorized. Learning
+from it was allowed. The proposed reusable rule may even be
+operationally sensible. What changed is the kind of authority:
+adjudicating one fact pattern has been converted into authority
+over a class of future fact patterns. That conversion is not
+ordinary learning. It is a governance transition.
+Learn how to succeed ̸≡ learn what is allowed.
+We call the resulting failure exception ratcheting: individu-
+ally valid exceptions and success feedback expand the region
+that is treated as standing normative authority even though no
+authorized normative transition widened the governing rule.
+The phenomenon resembles normalization of deviance, where
+repeated successful deviation becomes evidence that the devi-
+ation is acceptable [8]; a learning system can automate that
+feedback path by retaining successful cases and proposing
+broader reusable policies.
+1.1 The protected boundary is a separation of powers
+The key distinction is not between “learning” and “no learn-
+ing.” It is between three non-interchangeable powers:
+• CASE: this concrete case may deviate within a bounded
+scope;
+• PRECEDENT : this machine-checkable class of future cases
+may reuse a decision;
+• AMEND : the delegated discretion envelope itself may
+change.
+A principal may possess the first power without the second,
+and the second without the third. The paper’s core invariant is
+therefore a machine-enforced separation of powers:
+CASE̸⇒ PRECEDENT ,
+PRECEDENT ̸⇒ AMEND.
+Operational success may influence the learner’s competence
+and its next proposal. It is never, by itself, proof of normative
+authority.
+1.2 From metaphor to a security state
+The phrase “the learner generalized too far” is not a secu-
+rity definition. We therefore make standing authority explicit.
+For each norm N, the root supplies a discretion envelope
+DN . The system maintains one-shot CASE certificates and
+1
+=== PAGE 2 ===
+ADJUDICATE LEARN RATIFY
+root envelope
+DN
+CASE
+one-shot
+operational
+success
+learner /
+memory
+candidate
+ruler
+PRECEDENT
+reusable×
+containment
+proof
+[[r]]⊆DN
+AMEND
+changeDN
+authorized
+root power
+A valid case may
+teach the system.
+It remains one case.
+Learning may
+change competence
+and propose broader rules.
+CASE̸⇒PRECEDENT̸⇒AMEND
+Figure 1: Success may teach; it may not legislate. A valid CASE may produce useful learning and a candidate rule. Exception
+ratcheting is the forbidden shortcut from successful case history to standing authority. PRECEDENT GUARD permits the proposal
+but not the shortcut: PRECEDENT requires an independent containment proof, while only authorized AMEND power may widen
+the discretion envelope.
+reusable, containment-certified PRECEDENT objects. We de-
+fine STANDING REGION as exactly the set of cases admitted
+by currently active precedents without constructing a fresh
+case proof. Exception ratcheting is then a concrete state vio-
+lation: the standing region escapes the current root envelope
+even though no valid AMEND transition accounts for that
+expansion.
+This framing deliberately leaves the learner unrestricted. It
+may be neural, retrieval-based, symbolic, or adversarial; it
+may memorize every success and propose arbitrarily broad
+future rules. The trusted boundary governs only the transi-
+tion from learned representation to standing normative au-
+thority. That separation lets the security theorem say some-
+thing stronger than “our learner usually behaves”: operational
+learning may change arbitrarily while the normative envelope
+remains confined.
+1.3 Why this is not just “ask a human”
+Some deployments can synchronously escalate every diffi-
+cult case to a root authority. Others intentionally delegate
+local discretion because delay, availability, or operating condi-
+tions make that undesirable. Our object is the latter authority
+structure, not a particular application domain. Disconnected
+scientific and cyber-physical systems are one forcing example,
+but the same boundary appears anywhere case adjudication,
+persistent reuse, and rulemaking power are deliberately sep-
+arated. The mechanism must therefore preserve useful dele-
+gated discretion without quietly converting it into delegated
+legislation.
+1.4 Design and contributions
+PRECEDENT GUARD makes normative generalization an ex-
+plicit security operation. A learner can propose any action
+or reusable rule. A CASE certificate authorizes one context-
+bound deviation; a PRECEDENT installs a reusable rule only
+with a proof that its denotation remains inside the current dis-
+cretion envelope; and an AMEND object is the only operation
+that may widen that envelope. A counterfactual challenger can
+additionally check “no lower-deviation alternative” claims for
+norms that require necessity evidence. Repeated cases may
+therefore make the system faster and more competent without
+making it more legally permissive.
+This paper makes four contributions:
+• A security object for exception ratcheting. We define
+STANDING REGION , give a labeled transition system over
+normative state, and prove a single normative authority
+confinement invariant from which no-self-ratification and
+root-envelope preservation follow. We separately state
+success-history noninterference as a property of norma-
+tive admissibility rather than proof-cache performance.
+• A limit on outcome-only ratification.We give a necessary-
+and-sufficient root-observation-sufficiency characterization
+of when outcome-only generalization can be both sound
+and complete, strictly generalizing the earlier impossibility
+argument.
+• A separation-of-powers architecture. PRECEDENT -
+GUARD combines typed CASE/PRECEDENT /AMEND ob-
+jects, proof-carrying discretion, certified precedent refine-
+ment, explicit version/key-epoch handling, and an optional
+counterfactual challenger with fail-closed resource bounds.
+• Claim-matched mechanism evidence. We implement two
+structurally different containment verifiers—one monotone
+and one non-monotone/disjunctive—and stress both under
+adversarial generalization. We also report sampling sensi-
+tivity, the challenger’s conservative-rejection curve under
+model over-approximation, and overload behavior up to
+20× nominal. These experiments test the mechanism and
+its stated trade-offs; they do not claim empirical prevalence
+in deployed LLM agents.
+2. Background and Gap
+2.1 Hard rules, defeasible norms, and normative power
+Security traditionally favors precise enforcement boundaries.
+Least privilege and reference monitoring aim to mediate
+security-sensitive actions [9, 10]. Usage-control systems fur-
+ther allow mutable attributes and continuing decisions [ 11].
+Long-lived autonomy nevertheless contains rules that can-
+not be encoded as absolute prohibitions without sacrificing
+2
+=== PAGE 3 ===
+mission resilience.
+Normative multi-agent systems provide richer concepts.
+The T-Norm methodology explicitly represents obligations,
+prohibitions, permissions, exemptions, exceptions, and nor-
+mative powers [2]. Oren, Luck, and Miles formalize powers
+to create, delete, or modify norms and even powers over nor-
+mative powers [1]. These models are useful foundations for
+our distinction between adjudication and rulemaking.
+Our security concern begins after a valid exception is issued.
+The operational learner may absorb the case into memory,
+policy parameters, retrieved examples, or a reusable skill. If
+future authorization logic trusts that learned representation,
+a one-case exception can become a standing decision rule
+without any explicit exercise of normative power.
+2.2 Norm emergence and runtime revision
+Norm emergence studies how populations converge on com-
+mon behavior, often from bottom-up interaction, learning,
+observation, or payoff structures [12]. Runtime norm-revision
+work intentionally learns how norm compliance or violation
+correlates with system objectives and changes sanctions ac-
+cordingly [3, 4]. In these systems, emergence or revision is a
+feature and the revision component is part of the governance
+design.
+We study the opposite trust boundary. The root norm is
+already known and must not change unless an authorized rule-
+making operation occurs. The learner may improve freely, but
+its successful cases are not themselves a source of constitu-
+tional authority.
+2.3 Restraining bolts and action certificates
+Restraining bolts place an authority-defined specification out-
+side the learning policy [5, 6]; normative restraining bolts and
+ordered variants target legal, social, and ethical norm com-
+pliance and prioritized violation minimization [7, 13]. They
+are complementary to our approach. A restraining layer still
+needs a semantics for exceptions and for whether a learned
+exception classifier is allowed to widen.
+Proof-carrying authentication asks a requester to provide
+evidence for authorization [14]; recent proof-carrying agent-
+action work similarly binds agent actions to portable evidence
+and approval semantics [15]. PRECEDENT GUARD adopts the
+proof-carrying philosophy but protects a different transition:
+the conversion of a case approval into reusable normative
+authority.
+3. Model and Threat Model
+3.1 System class
+We define the system class by authority structure rather
+than application domain. We consider autonomous or semi-
+autonomous systems with four properties: (i) a root-authored
+policy contains defeasible norms; (ii) a local component can
+approve bounded, case-specific deviations; (iii) a persistent
+Table 1: Our security object relative to adjacent work.
+Approach Primary object Security gap addressed
+Norm emer-
+gence [12]
+bottom-up conven-
+tion
+unauthorized emergence
+Runtime revi-
+sion [4]
+explicit
+norm/sanction
+revision
+de facto policy change without
+invoking revision
+T-Norm / pow-
+ers [1, 2]
+de jure normative
+power
+case learning obtaining rulemak-
+ing effect without that power
+Restraining
+bolts [5, 7]
+constrain learned
+behavior
+who may generalize the excep-
+tion predicate
+Ours case-to-precedent
+transition
+self-ratifying normative
+authority (open: cross-root
+AMEND authentication in
+federated deployments)
+learner can retain or reuse operational outcomes and propose
+reusable procedures; and (iv) adjudication authority is inten-
+tionally weaker than authority to change the standing norm.
+Agents may plan, learn from successful or failed outcomes,
+store persistent memory, delegate tasks, and propose new
+reusable procedures. A policy enforcement point (PEP) medi-
+ates registered high-consequence actions.
+The model does not assume a particular reason that root
+approval is absent from a case decision. Disconnected scien-
+tific and cyber-physical systems are one useful instantiation
+because they make pre-delegated discretion operationally nec-
+essary, but the formal state, transition system, and confinement
+theorem do not depend on that setting.
+The root policy separates hard invariants from defeasible
+norms. Hard invariants are never locally relaxed. A defea-
+sible norm N has a root-authored discretion envelope DN ,
+specifying which deviations may be locally justified by which
+evidence.
+Lets∈ S be a current situation, e∈ E current context
+evidence, andd∈ ∆ a deviation vector. We write(s,e,d )∈
+DN when the human root has delegated authority for some
+local adjudicator to approve deviationd from normN under
+evidencee in situation s. The envelope is a constitutional
+upper bound, not a statement that every contained deviation
+should be used.
+Terminology. We use three distinct terms that were pre-
+viously conflated under the single word “evidence”: context
+evidencee (a claim about the world, e.g. a sensor reading);au-
+thority proof π (a proof object showing that context evidence
+satisfies a norm’s stated obligations, or that a candidate rule’s
+denotation is contained in an envelope); and normative certifi-
+cate (a CASE, PRECEDENT , or AMEND object, Section 6).
+3.2 Case, precedent, and amendment
+A case is a one-shot decision for a concrete context. A prece-
+dent is a reusable ruler whose denotation [[r]]⊆S×E× ∆
+covers a class of future cases. An amendment changes DN
+itself. These three objects have distinct authority:
+CASE̸= PRECEDENT ̸= AMEND.
+3
+=== PAGE 4 ===
+A case certificate may authorize execution but must not be ad-
+missible justification for installing a reusable rule unless that
+rule independently proves containment in the root envelope.
+(We say “admissible justification” here, rather than “admis-
+sible evidence,” specifically to avoid collision with context
+evidencee.)
+3.3 Learner and history
+The untrusted agent maintains arbitrary learning stateθt up-
+dated from history:θt+1 =F (θt,Ht). We place no restriction
+onF . It may be a neural learner, a retrieval system, a symbolic
+planner, a skill library, or an adversarial generalizer. The agent
+may use past successful exceptions when proposing future
+actions or candidate precedents.
+Operational outcomes are deliberately separated from nor-
+mative authority. Let Outcome(c)∈{ success, failure} de-
+scribe mission outcome. Success is evidence that an action
+worked operationally; it is not, by itself, evidence that the
+action class is normatively authorized.
+3.4 Adversary and trusted computing base
+No malicious agent is required. For a stronger guarantee, how-
+ever, we allow the learner and scheduler to be adversarial: they
+may choose candidate precedents, exploit successful cases,
+select legal task contexts, and attempt to broaden future excep-
+tions. They cannot forge cryptographic certificates, modify
+root policy, bypass the PEP, or compromise the verifier.
+The trusted computing base consists of the PEP, root
+norm/envelope state, certificate verifier, monotonic (version,
+key-epoch) pair, and the small counterfactual challenger for
+norms that require a necessity check. Agent models, prompts,
+memories, reward models, planners, and precedent proposals
+are outside the TCB.
+We now state four additional trust-boundary items that were
+previously left implicit or deferred to Limitations. Each names
+a threat this paper does not solve and explains why it is a
+distinct security question from exception ratcheting.
+(T1) Evidence integrity is out of scope, and is a different
+attack. PRECEDENT GUARD guarantees that success history
+cannot substitute for root authority. It does not guarantee
+e = truth. Context evidence is assumed to originate from
+a trusted sensor, attested estimator, or root-approved mea-
+surement pipeline, independent of the learner. If the learner
+can itself fabricate or biase (for example by controlling the
+downstream process that produces a threshold-adjacent sen-
+sor reading), that is an evidence-integrity attack (“evidence
+inflation”), not exception ratcheting: it defeats the discretion
+contract by corrupting its input rather than by bypassing the
+CASE/PRECEDENT/ AMEND separation. Both attacks mat-
+ter; only the second is this paper’s subject.
+(T2) Key epochs and revocation. In deployments where
+root contact may be intermittent, systems must tolerate root
+key rotation and after-the-fact revocation of a previously certi-
+fied precedent (e.g., a PRECEDENT is later found to rest on
+a flawed containment proof, or an AMEND authority is com-
+promised). We introduce a constitutional key epochκ; every
+normative object carries (v,κ ) for versionv and epochκ. The
+root may sign ROTATE(κ→κ+1) or REVOKE(certID,v′).
+The local PEP maintains a monotonically advancing (v,κ )
+and treats any object bound to an older, explicitly revoked,
+or superseded pair as invalid. We are explicit about the re-
+sulting limitation: a fully disconnected system cannot learn
+of a revocation the instant it is issued. Freshness is bounded
+by certificate expiry, a preloaded key schedule, and update
+on reconnection – this is an availability/ freshness trade-off
+inherent to disconnected operation, not a defect specific to
+PRECEDENT GUARD .
+(T3) Challenger availability. The counterfactual chal-
+lenger (Section 6.4) is itself a resource that an adversar-
+ial scheduler could try to exhaust by manufacturing many
+challenge-requiring requests. We bound challenger compute
+by a budget Bc (maximum concurrent challenges), a per-
+principal rate limit, and a strict timeout, with the explicit
+fail-closed rule timeout⇒ deny exception (never⇒ admit).
+Section 8 measures the resulting throughput/latency/timeout
+behavior under load, including a 20×-overload adversarial
+flood.
+(T4) Multi-norm interaction. A request may be governed
+by several norms simultaneously, A(q) = {N1,...,N m}.
+For conjunctive norms we require containment in the inter-
+section, [[r]] ⊆ T
+N∈A(q)DN , equivalently∀N ∈ A(q) :
+[[r]]⊆ DN . For prioritized or conflicting norms, PRECE -
+DENT GUARD does not invent a resolution policy; it requires
+the root to supply a resolver Resolve(DN1,...,D Nm) and
+verifies only that a candidate rule stays inside the resolver’s
+joint region. This keeps the trusted-computing-base boundary
+the same as in the single-norm case: PRECEDENT GUARD
+certifies containment, it does not adjudicate norm priority.
+4. Exception Ratcheting
+4.1 State and an operational definition
+We first fix a normative state so that “as though it were covered
+by standing authority” becomes a computable predicate rather
+than a description of learner intent. A normative state is a
+tuple
+σ =⟨v,κ,D, P,C,R,K,θ⟩,
+where v is the normative version, κ the key epoch, D =
+{DN}N the current root envelopes, P the set of currently
+active certified PRECEDENT objects,C the set of live one-
+shot CASE certificates,R revocation state, K the certified
+verifier/challenger state, andθ the (untrusted, arbitrary) learner
+state.
+Definition 1 (Standing region). For normN and stateσ,
+StandingRegionN(σ) =
+[
+P∈ActivePrecN (σ)
+[[rP ]],
+where ActivePrecN(σ)⊆P is the set of PRECEDENT ob-
+jects forN that are currently valid under(v,κ ) and unexpired.
+4
+=== PAGE 5 ===
+Table 2: Steps in the minimal ratcheting example (Fig. 1).
+Step k Generalization move
+0 seed precedent r0: high urgency, high scarcity, reversible
+1 lower urgency threshold → r1
+2 lower alternative-scarcity threshold → r2
+3 drop reversibility requirement → r3
+4 increase maximum allowed deviation → r4
+StandingRegionN(σ) is the set of (s,e,d ) triples that Algo-
+rithm 1 will admit without constructing a fresh CASE proof
+or invoking the challenger – i.e., the operational meaning of
+“covered by standing local normative authority. ”
+Definition 2 (Exception ratcheting – operational). An execu-
+tion exhibits exception ratcheting for normN if, at some time
+t,
+StandingRegionN(σt)̸⊆Dv(σt)
+N
+and no valid AMEND transition (Section 5) occurred between
+the initial state andσt that installedDv(σt)
+N as a strict superset
+ofDv(σ0)
+N accounting for that excess.
+Definition 2 is decidable directly from PEP-visible state:
+StandingRegionN is computed from the active precedent set
+exactly as Algorithm 1 uses it, and containment inDv
+N is ex-
+actly the check the verifier already performs at PRECEDENT-
+installation time (Assumption 4, Section 5.2). Ratcheting
+is therefore something the reference monitor can, in princi-
+ple, check about itself, rather than a claim about whether the
+learner “believes” the rule changed. Every later theorem is
+stated in terms of StandingRegionN so that “ratcheting did
+not occur” and “the theorem’s invariant held” are the same
+sentence.
+Scope note. As Section 3 states under (T1), Definition 2
+concerns the standing rule, not the truth of the evidence e
+used to satisfy that rule at admission time. A system can
+be free of exception ratcheting under Definition 2 and still
+be undermined by a corrupted evidence pipeline; these are
+different, separately-scoped failures.
+4.2 Minimal example
+Suppose an energy norm says “preserve reserve except when
+current urgency, lack of alternatives, and reversibility jus-
+tify a bounded deviation.” During casec1, evidence strongly
+justifies deviationd1, the action succeeds, and the platform
+survives. A learner generalizes the successful context by
+lowering the urgency threshold. The generalized rule is still
+within DN and another case succeeds. It then lowers the
+alternative-scarcity threshold, drops the reversibility require-
+ment, and finally increases the allowed deviation. Table 2
+names each step so the transition indices used later line up
+with this narrative.
+At no step does the learner announce “change the norm.”
+Each update looks like ordinary experience reuse. The critical
+transition occurs when the denotation of the learned rule first
+crosses DN : [[rk−1]] ⊆ DN∧ [[rk]] ̸⊆ DN . If the PEP
+trustsrk because earlier cases succeeded, the learning path
+has become an unauthorized policy-update channel – exactly
+the event Definition 2 flags at stepk.
+4.3 Outcome-only ratification: a sufficiency characteriza-
+tion
+Our original result showed that no procedure depending only
+on operational history can both install authorized rules and
+reject unauthorized ones, by exhibiting two policies that agree
+on history but disagree on a proposal. That argument is correct
+but, as stated, is close to definitional: if U is defined not to
+look at root-bound evidence, then two roots that produce
+identical observations are trivially indistinguishable to it. We
+now state the general condition under which any observation-
+based procedure can be both sound and complete, of which
+the earlier result is a corollary.
+LetU :O×R→{ install, reject} decide on a proposed
+ruler using an observationOD(H) that a root policyD pro-
+duces from historyH (e.g., which cases were admitted, and
+their outcomes). For two root policiesD,D′, writeD∼O D′
+(under proposalr) whenOD(H) =OD′(H) for the givenH.
+Theorem 1 (Root-observation sufficiency). U can be simul-
+taneously sound (U installsr only if [[r]]⊆D) and complete
+(U installs r whenever [[r]]⊆ D) on a policy family D if
+and only if, for every observational equivalence class of∼O
+induced byD and every proposalr, the indicator 1[[[r]]⊆D]
+is constant across allD in that class:
+D∼O D′ =⇒
+ 
+[[r]]⊆D ⇐⇒ [[r]]⊆D′
+.
+Proof. (⇐) If the indicator is class-constant, define U to in-
+stall iff the (well-defined) class value is 1; this is both sound
+and complete by construction. (⇒) Suppose the indicator is
+not class-constant: there exist D∼O D′ with [[r]]⊆D but
+[[r]]̸⊆ D′. Since U depends only on the observation and
+OD(H) = OD′(H), U must output the same decision for
+both. If that decision is install, completeness underD is fine
+but soundness underD′ is violated (an out-of-envelope rule is
+installed); if reject, soundness underD′ holds but complete-
+ness underD fails. Either way U cannot be both sound and
+complete onD.
+Corollary 1 (Outcome-only ratification impossibility). IfU’s
+observationOD(H) depends only on case contexts, actions,
+and operational outcomes – not on root-bound containment
+evidence for the proposed rule r – then for any D there is
+aD′ that agrees with D on every case in H but disagrees
+on [[r]], givingD∼O D′ with a non-constant indicator. By
+Theorem 1,U cannot be both sound and complete.
+The value of Theorem 1 over the corollary alone is that it
+identifies exactly how much root-bound information an obser-
+vation must carry to make outcome-based generalization safe –
+namely, enough to separate every pair of policies that disagree
+on some reachable proposal – rather than only ruling out the
+all-or-nothing case of carrying none.
+5
+=== PAGE 6 ===
+5. Transition System and Security Analysis
+5.1 Transitions
+We define six labeled transitions on normative stateσ:
+σ
+CASE
+−−−→σ′, σ
+INSTALL_PREC
+−−−−−−−−−→σ′, σ
+AMEND
+−−−−−→σ′,
+σ
+OUTCOME
+−−−−−−→σ′, σ
+LEARN
+−−−−→σ′, σ
+REVOKE
+−−−−−→σ′.
+Each transition’s effect on the state components is restricted
+as follows.
+• CASE: adds a one-shot certificate toC; leavesD,P,v,κ
+unchanged.
+• OUTCOME, LEARN: modify onlyθ (learner state); leave
+D,P,C,v,κ unchanged.
+• INSTALL_PREC: adds a candidater toP only if the veri-
+fier acceptsπ⊆(r,Dv
+N) = 1 (Assumption 4 below); other-
+wise the transition is refused andσ is unchanged.
+• AMEND: requires a valid root/epoch-authenticated object;
+advancesv→v + 1 (and optionallyκ) and installs a new
+Dv+1
+N ; may invalidate precedents that no longer satisfy
+containment under the new envelope.
+• REVOKE: advances κ or marks a specific certificate id
+invalid inR; removes the corresponding object fromP or
+C if present.
+5.2 Assumptions
+Our guarantees require: (1) registered high-consequence ac-
+tions pass through the PEP; (2) root envelopes and the (v,κ )
+pair are authenticated and monotonic; (3) CASE objects can-
+not be replayed outside their case scope; (4) the contain-
+ment verifier is sound for the implemented norm DSL , i.e.
+VerifyContainment(r,D,π ) = 1⇒ [[r]]⊆ D; and (5) the
+challenger is sound relative to its declared model for norms
+that rely on a no-better-alternative conclusion. We deliberately
+state Assumption 4 as a property of an abstract verifier, not
+as monotonicity of any specific DSL: Section 7 implements a
+second, non-monotone DSL that satisfies Assumption 4 by a
+different concrete argument (exhaustive enumeration over a
+bounded domain, rather than least-favorable-point evaluation
+of a monotone score). Silent bypass of the PEP or compromise
+of the root key is outside scope. The learner itself is untrusted.
+5.3 Normative authority confinement
+Theorem 2 (Normative authority confinement). Define the
+invariantI(σ)≡∀ N : StandingRegionN(σ)⊆ Dv(σ)
+N . If
+I(σ0) holds at the initial state, then I(σt) holds for every t
+reachable by any sequence of CASE, OUTCOME, LEARN,
+INSTALL_PREC, and REVOKE transitions in which every
+AMEND transition present is validly authenticated.
+Proof. By induction on the transition sequence. Base case:
+I(σ0) holds by hypothesis. Inductive step: assume I(σi)
+holds; show I(σi+1) for each transition type. CASE: does
+not modifyP, so StandingRegionN is unchanged for every
+N; D is unchanged; I is preserved. OUTCOME, LEARN:
+modify onlyθ, which does not appear in StandingRegionN or
+D;I is preserved trivially. INSTALL_PREC: either refused
+(no state change, I preserved), or accepted, in which case
+Assumption 4 guarantees [[r]]⊆Dv
+N for the newly addedr,
+so the union defining StandingRegionN gains only a subset
+of Dv
+N ; I is preserved. REVOKE: only removes elements
+fromP orC, which can only shrink StandingRegionN ;I is
+preserved. AMEND: by hypothesis this transition is validly
+authenticated; it installsDv+1
+N and simultaneously re-validates
+every precedent inP againstDv+1
+N , removing any that fail
+containment; the remaining active precedents therefore satisfy
+[[r]]⊆Dv+1
+N by construction, soI(σi+1) holds for the new
+version.
+Corollary 2 (No self-ratification) . In any execution with-
+out an accepted AMEND transition, successful CASE exe-
+cutions and arbitrary LEARN/OUTCOME updates cannot
+enlarge StandingRegionN beyondDv
+N . Operational success
+can change learner state and candidate proposals but cannot,
+by itself, enlarge standing normative authority.
+This corollary and Theorem 2 replace the previous
+separately-stated “no self-ratification” and “constitutional non-
+amplification” theorems, which were two readings of the same
+invariant; stating them as one theorem with one corollary
+makes that relationship explicit instead of leaving readers to
+notice it.
+5.4 Success-history noninterference, corrected
+The original noninterference argument stated that if one execu-
+tion lacks a cached precedent, “it can construct an equivalent
+case proof,” and concluded that admission is invariant to his-
+tory. This blurs two different things: whether a request is
+normatively admissible, and whether a particular implemen-
+tation can finish constructing a proof before a deadline. Two
+executions with identical normative state can differ in wall-
+clock admission if one has a cached proof and the other must
+recompute one and times out. We restate the property about
+the quantity that is actually invariant.
+Definition 3 (Normative admissibility) .
+NormAdmitv(N,s,e,d ) = 1 iff (s,e,d ) is authorized
+by the current root envelope Dv
+N together with a valid
+case proof or a currently active, containment-verified
+PRECEDENT, and no applicable hard invariant is violated.
+NormAdmitv is defined purely in terms of v, D, current
+evidence, and active precedents/amendments – never in terms
+ofθ or prior outcomes.
+Theorem 3 (Success-history noninterference). Letτ1,τ 2 be
+two executions with equal current normative versionv, root
+envelopeD, current evidencee, and current system state, but
+arbitrary and possibly different learner states θ and prior
+operational outcomes. Then NormAdmitτ1
+v (N,s,e,d ) =
+NormAdmitτ2
+v (N,s,e,d ) for every current deviation request
+(s,e,d ).
+6
+=== PAGE 7 ===
+Proof. By definition, NormAdmitv is a function of
+(v,D,e, P,s,d ) only; θ and Outcome(·) do not appear as
+arguments and do not affect the value of any active PRECE-
+DENT’s containment proof (Assumption 4 was checked once,
+at installation time, against Dv
+N , not against history). Since
+τ1,τ 2 agree onv,D,e and current state by hypothesis, they
+agree on NormAdmitv.
+What may legitimately differ between τ1 and τ2 is how
+quickly Algorithm 1 computes this value – τ1 may find a
+cached PRECEDENT (Line 4) whileτ2 must construct a fresh
+CASE proof (Line 6-11) – but this is proof memoization, a
+performance property, and is stated as such rather than folded
+into the security theorem.
+5.5 Bounded offline discretion
+Proposition 1 (Offline discretion availability). If a request is
+inside the current discretion envelope, satisfies its evidence
+obligations, and passes any required counterfactual check,
+the PEP can authorize it while the root is offline. No AMEND
+is required.
+We state this as a proposition rather than a theorem: it
+is a capability/availability claim about what the mechanism
+permits, not a confinement guarantee about what it prevents,
+and grouping it with Theorem 2 and Theorem 3 previously
+suggested an equivalent proof burden that it does not carry.
+This matters operationally: the defense is not “call Earth.” It
+preserves the exact offline discretion already delegated while
+blocking only expansion beyond that delegation.
+5.6 Challenger soundness
+Lemma 1 (Sound no-better-alternative certificate). If chal-
+lenger modelMc over-approximates all concrete plans satisfy-
+ing the goal and hard invariants, and no plan inMc meets the
+deadline with deviation strictly belowd, then no such concrete
+plan exists.
+The converse need not hold: over-approximation can create
+spurious alternatives, causing conservative rejection but not
+unsafe admission. Section 8 quantifies exactly this trade-off
+rather than stating it only qualitatively.
+6. Design: P RECEDENT GUARD
+6.1 Overview
+PRECEDENT GUARD moves exception governance to a small
+reference-monitor layer. The planner can still learn from
+arbitrary history and can propose arbitrary actions or rules.
+The PEP accepts normative authority only through three typed
+objects.
+6.2 Typed normative authority
+A CASE certificate is C =
+⟨N, caseID,s,e,d,p,t exp,v,κ,σ ⟩, where p is purpose and
+σ authenticates the adjudication. It is one-shot and context-
+bound. A PRECEDENT certificate isP =⟨N,r,π⊆,v,κ,σ ⟩,
+wherer is reusable andπ⊆ proves [[r]]⊆Dv
+N . An AMEND
+object isA =⟨N,Dv+1
+N ,v +1,κ′,σ root⟩. Only an authorized
+root key or explicitly delegated constitutional authority
+may create one. There is deliberately no derivation rule
+CASE⇒ PRECEDENT or PRECEDENT ⇒ AMEND .
+6.3 Proof-carrying discretion
+The root does not enumerate every future emergency. Instead
+it supplies a discretion contract. For each norm, deviationd
+has evidence obligations ReqN(d). A case request includes
+current evidencee and an authority proof thate|= ReqN(d).
+Larger or less reversible deviations can require stronger ev-
+idence. The root can therefore delegate a family of case
+decisions without converting the norm into a hard threshold
+or enumerating every contingency.
+6.4 Counterfactual challenger
+A goal-driven agent has an obvious conflict when it claims “I
+must bend the rule because there is no alternative.” PRECE -
+DENT GUARD therefore allows a norm to require a small in-
+dependent challenger. For proposed plan π with deviation
+δ(π) and deadlineT , the challenger asks whether a plan ex-
+ists with δ(π′)≺ δ(π), Goal(π′) = 1 , HardSafe(π′) = 1 ,
+Time(π′)≤ T . In a cyber-physical deployment, the check
+can run on a trusted abstract modelMc that over-approximates
+low-deviation reachability. If the over-approximation con-
+tains no such plan, absence is sound for the concrete system
+(Lemma 1). If it contains one, the result may be conservatively
+pessimistic. The challenger is invoked only for exception re-
+quests whose norm contract requires necessity evidence.
+Bounded challenger. Per (T3), the challenger is given a
+maximum concurrency budgetBc, a per-principal rate limit,
+and a strict timeoutτto, with timeout⇒ deny exception as
+the sole failure mode – never⇒ admit. Section 8 measures
+throughput, latency, and timeout rate as a function of load,
+including an adversarial 20×-overload flood.
+6.5 Certified precedent refinement
+Repeated cases should make the system faster, not more
+legally permissive. A learner may propose a reusable rule
+r such asϕ(s,e )⇒d⪯dmax. PRECEDENT GUARD certifies
+it only if [[r]]⊆Dv
+N . Once certified, future matching cases
+reuse the proof template while checking current evidence and
+expiry. Definer1⪯N r2 when [[r1]]⊆ [[r2]]. Agents without
+AMEND may learn useful specializations and refinements
+inside the root envelope, but they cannot move the envelope
+itself.
+6.6 Why not freeze learned norm state?
+Because useful autonomy includes policy acceleration. A
+long-lived system should be allowed to turn recurring, prov-
+ably authorized patterns into cheap local precedents. Prece-
+7
+=== PAGE 8 ===
+Algorithm 1 Normative request handling
+Require: requestq = (N,s,e,d,π )
+1: ifq violates a hard invariant then
+2: reject
+3: else if matching active PRECEDENT P ∈
+ActivePrecN(σ) exists ande satisfiesP then
+4: admit underP ▷ INSTALL_PREC already checked
+at cert. time
+5: else if (s,e,d )∈Dv
+N and proof obligations hold then
+6: if N requires necessity and challenger (within Bc,
+τto) finds a lower-deviation plan then
+7: reject; return lower-deviation witness ▷Mc per
+Lemma 1
+8: else if challenger times out then
+9: reject ▷ fail-closed, per (T3)
+10: else
+11: issue one-shot CASE (CASE transition); admit
+12: end if
+13: else
+14: reject or wait for authorized AMEND
+15: end if
+dent formation is therefore a refinement proof, not an em-
+pirical vote. Operational learning chooses what to propose;
+constitutional proof decides what becomes standing normative
+authority.
+7. A Second, Non-Monotone Containment Veri-
+fier
+Assumption 4 requires only that VerifyContainment be
+sound for whatever DSL is implemented; it does not require
+monotonicity. Section 8.2 evaluates our original monotone,
+finite-threshold energy-reserve DSL ( DSL-A). To demon-
+strate that Theorem 2 does not secretly depend on mono-
+tonicity, we implement a second norm DSL with disjunc-
+tive, non-monotone structure (DSL-B), modeling a contain-
+ment/evacuation norm:
+DB(z) =
+ 
+smoke∧pressureStable∧tox≤ 6
+
+∨
+ 
+evac∧backupVent∧tox≤ 8
+
+,
+over boolean evidencesmoke, pressureStable, evac, backupVent∈
+{0, 1} and integer toxicity tox∈ [0, 10]. DB is not express-
+ible as a single monotone threshold on a linear combination
+of evidence: it is a disjunction of two conjunctive branches
+with different toxicity bounds, and a rule can be unsafe by
+satisfying neither branch’s conjunction even while individual
+evidence values look “more favorable.”
+A candidate precedent under DSL-B is a finite disjunction
+of conjunctive clauses over the same evidence variables plus
+a per-clause toxicity bound. Containment, [[r]]⊆ DB, is
+equivalent to UNSAT(r∧¬DB) over this vocabulary. Be-
+cause the evidence domain is finite and small (16 boolean
+combinations× 11 toxicity levels = 176 points per clause),
+we decide containment by exhaustive enumeration over this
+bounded domain – a sound and complete decision procedure
+Table 3: DSL-A (monotone) success-only ratcheting. Unsafe
+means a reusable rule covers at least one case outside the root
+envelope.
+Length Histories History-reuse unsafe P RECEDENT GUARD unsafe
+1 5 20.0% 0%
+2 25 52.0% 0%
+3 125 79.2% 0%
+4 625 92.3% 0%
+5 3,125 97.4% 0%
+6 15,625 99.1% 0%
+7 78,125 99.7% 0%
+8 390,625 99.9% 0%
+for this fragment. We note for transparency that a production
+system would more naturally compile such fragments to an
+off-the-shelf QF-LIA/QF-LRA-with-booleans SMT solver;
+the network-restricted evaluation environment used for this
+paper did not have solver-backend access, so we verified the
+same underlying decidability claim (a bounded, quantifier-
+free fragment is decidable) by direct enumeration rather than
+by invoking a solver. The two implementations decide the
+identical question; only the search strategy differs.
+8. Evaluation
+8.1 Research questions
+We ask whether success-only experience reuse expands a
+standing exception region under a monotone DSL (RQ1) and
+under a structurally different, non-monotone DSL (RQ1 ′);
+whether PRECEDENT GUARD prevents expansion while still
+permitting safe reusable precedents under both DSLs (RQ2);
+whether the “fraction of random proposals that are safe re-
+finements” statistic is sensitive to the sampling distribution
+(RQ2′); whether a counterfactual challenger changes excep-
+tion decisions, and precisely how conservative it is under
+controlled model corruption (RQ3); and what enforcement
+and availability costs the mechanism adds, including under
+adversarial overload (RQ4).
+8.2 RQ1/RQ2: Exhaustive exception-ratcheting stress
+test, DSL-A
+We start from valid precedent (u≥ 6,a ≥ 6,r = 1,d ≤ 3)
+under the monotone envelope DA(u,a,r ) = min(4 ,⌊(u +
+a + 2r)/4⌋). At each successful step, the generalizer chooses
+one of five updates: lower urgency, lower alternative scarcity,
+drop reversibility, increase deviation, or remain unchanged.
+We exhaustively enumerate all histories through length eight.
+At length eight, history reuse installs an out-of-envelope rule
+in 390,241 of 390,625 histories (99.9%); PRECEDENT GUARD
+installs none (Table 3, reproducing our original result un-
+changed). This is a security stress test, not a prevalence es-
+timate for deployed models: the generalizer is intentionally
+adversarial and every execution is operationally successful.
+8
+=== PAGE 9 ===
+Table 4: DSL-B (non-monotone, disjunctive) success-only
+ratcheting.
+Length Histories History-reuse unsafe P RECEDENT GUARD unsafe
+1 5 40.0% 0%
+2 25 64.0% 0%
+3 125 78.4% 0%
+4 625 87.2% 0%
+5 3,125 92.6% 0%
+6 15,625 95.8% 0%
+1 2 3 4 5 6 7 8
+0
+50
+100
+Successful exception/generalization steps
+Histories unsafe (%)
+History-reuse, DSL-A
+History-reuse, DSL-B
+PRECEDENT GUARD (both DSLs)
+Figure 2: Exception ratcheting under success-only feedback,
+monotone (DSL-A) and non-monotone (DSL-B) containment
+verifiers. PRECEDENT GUARD reaches zero unsafe installa-
+tions on both, at every history length tested.
+8.3 RQ1′/RQ2: Exhaustive stress test, DSL-B (non-
+monotone)
+We repeat the exhaustive stress test on the disjunctive DSL-
+B (Section 7). The seed precedent is the exact sub-region
+smoke = 1 , pressureStable = 1 , tox ≤ 3 (deliberately
+stricter than the branch’s true bound of 6, leaving genuine
+safe headroom). Five per-step moves are available: raise the
+clause’s toxicity bound, drop the smoke requirement, drop the
+pressure-stable requirement, add a second clause matching the
+evacuation branch exactly (a safe non-monotone generaliza-
+tion – the agent “discovers” the alternate branch), or remain
+unchanged. Containment is decided by exhaustive enumera-
+tion (Section 7).
+At length six, unconstrained history reuse installs an out-
+of-envelope rule in 95.8% of the 15,625 histories; PRECE -
+DENT GUARD installs none, at every length, on this struc-
+turally different DSL. Averaged over all length-six histories,
+PRECEDENT GUARD still accepts 1.92 distinct safe generaliza-
+tion steps per history before rejecting a proposal that would
+cross DB – including, in every history that reaches it, the
+safe “discover the evacuation branch” move – confirming that
+confinement does not come at the cost of all learned reuse
+even in a non-monotone setting. Figure 2 summarizes the
+unsafe-history rate under success-only reuse and the zero-
+unsafe-installation result for PRECEDENT GUARD .
+8.4 RQ2′: Sampling sensitivity of the “safe refinement
+fraction” statistic
+Our original draft reported that 52.3% of 200,000 random
+candidate rules under DSL-A were valid root-envelope re-
+Table 5: Sampling-distribution sensitivity of the safe-
+refinement fraction (200,000 candidates each).
+Sampling distribution DSL-A DSL-B
+Uniform 52.3% 15.5%
+Boundary-biased 43.0% 27.5%
+Adversarial-outward (seed-anchored) 31.8% 27.6%
+Table 6: Challenger behavior under controlled model over-
+approximation (400 mission DAGs per corruption level;∼389
+trigger an exception request each).
+Spurious-edge fraction Unsafe admission Conservative false rejection
+0% (exact Mc = M) 0.0% 0.0%
+5% 0.0% 11.1%
+10% 0.0% 20.8%
+20% 0.0% 44.0%
+40% 0.0% 60.2%
+finements, without stating the sampling distribution. This
+number is sensitive to sampling choice, so we report it for
+three distributions instead of one (Table 5): uniform over the
+parameter ranges, boundary-biased (parameters drawn from
+the extremes of their ranges, where containment is hardest
+to satisfy), and adversarial-outward (rules generated by tak-
+ing 1–5 random generalization steps from the seed precedent,
+i.e., the same distribution the stress test uses). We report the
+identical three-distribution sensitivity analysis for DSL-B.
+The fraction varies by up to 20.5 percentage points across
+sampling strategies on DSL-A and 12.1 points on DSL-B;
+we therefore no longer report a single unqualified headline
+percentage in the abstract, and recommend that the number
+always be read together with its generating distribution.
+8.5 RQ3: Counterfactual challenge, and how conservative
+it is
+For 3,000 random mission DAGs of 25–55 nodes, the agent
+chooses the fastest plan; we allow a deadline 35% above the
+fastest-plan time and ask whether a hard-safe plan exists with
+lower maximum normative deviation. Consistent with our
+earlier report, a lower-deviation plan exists in the exact model
+for 69.5% (270/389) of the exception-triggering trials in this
+run, with median reduction of 1 deviation level.
+To quantify Lemma 1’s qualitative claim (“conservative
+rejection, not unsafe admission”), we then corrupt the chal-
+lenger’s planning model Mc by injecting spurious low-
+deviation edges at increasing rates and compareMc’s decision
+against the ground-truth modelM on the same trials (Table 6,
+Figure 3).
+Unsafe admission is identically zero at every corruption
+level, as Lemma 1 predicts: adding spurious edges only adds
+candidate plans toMc, so it can never fail to find a plan that
+genuinely exists in M. What degrades is precisely the in-
+tended failure mode – conservative rejection of a legitimate
+exception becauseMc reports a spurious, non-existent lower-
+deviation alternative – rising from 0% at the exact model to
+9
+=== PAGE 10 ===
+0 10 20 30 40
+0
+20
+40
+60
+Spurious-edge fraction inMc (%)
+Rate (%)
+Conservative false rejection
+Unsafe admission
+Figure 3: Across every tested corruption level, unsafe admis-
+sion stays at exactly 0.0% (Lemma 1 holds by construction:
+over-approximation cannot remove existing plans), while con-
+servative false rejection rises monotonically as the abstraction
+is degraded.
+Table 7: Prototype verification overhead.
+Operation Median 95th percentile
+Rule-containment check (DSL-A) 0.10 µs 0.11 µs
+Cached precedent lookup 0.15 µs 0.22 µs
+Ed25519 case signing 31.3 µs 33.8 µs
+Ed25519 case verification 104.8 µs 139.8 µs
+Counterfactual challenge 0.14 ms 0.31 ms
+60.2% at 40% edge corruption. This gives Lemma 1 an empir-
+ical, not just qualitative, trade-off curve, and gives an operator
+a concrete way to bound how much model over-approximation
+their deployment can tolerate before the challenger becomes
+too conservative to be useful.
+8.6 RQ4: Reference-monitor overhead and bounded-
+challenger overload
+Table 7 reports prototype verification microbenchmarks (un-
+changed from our earlier measurement).
+We flag, rather than silently carry forward, that Ed25519
+verification measuring roughly 3.3× signing latency is larger
+than typically reported for batch-disabled Ed25519 verifica-
+tion; we attribute this to our prototype using an unbatched,
+pure-Python verification path without hardware acceleration,
+and note it as an implementation artifact of the reference pro-
+totype rather than a property of Ed25519 itself. A production
+implementation should use a vetted native library and would
+be expected to close most of this gap.
+The intended fast path is cached precedent plus current-
+evidence checking; the challenger appears only on exceptions
+whose contract explicitly requires a necessity proof. Because
+that challenger is a shared, budget-bounded resource (T3),
+we simulate a bounded-challenger deployment (Bc = 8 con-
+current slots, 2 ms timeout, per-challenge service time drawn
+from a lognormal fit to the measured median/95th-percentile
+in Table 7) under increasing load fractions, and separately
+under a 20×-overload adversarial flood (Table 8).
+At up to nominal 100% load (Bc = 8 absorbs the full re-
+quest stream comfortably below its saturation point), latency
+and timeout rate are indistinguishable from the unloaded mi-
+crobenchmark. Under a deliberate 20× adversarial flood – an
+Table 8: Bounded-challenger behavior under load ( Bc=8,
+2 ms timeout, 5,000 req/s nominal arrival rate; flood row uses
+100,000 req/s, 100% requiring a challenge).
+Scenario p50 lat. p95 lat. Timeout rate
+10% load 0.14 ms 0.31 ms 0.0%
+50% load 0.14 ms 0.31 ms 0.0%
+100% load (nominal) 0.14 ms 0.31 ms 0.0%
+20× adversarial flood 1.98 ms – 99.7%
+attacker manufacturing far more challenge-requiring requests
+than the budgeted concurrency can serve – 99.7% of requests
+time out and are correctly denied rather than admitted; this
+is the fail-closed behavior specified in Algorithm 1 and in
+(T3), not an unsafe admission under load. Capacity planning
+(choice ofBc and rate limits relative to expected necessity-
+check volume) is therefore a genuine operational parameter,
+and we report it as such rather than only as a microbenchmark
+median.
+9. Why Simpler Defenses Are Insufficient
+Make every soft norm hard. This prevents ratcheting but
+removes resilience and turns unforeseen conflicts into fail-
+closed behavior.
+Let a supervisor decide every case. A local supervisor still
+needs exception semantics. If its classifier or precedent mem-
+ory is learned from operational success without a separate
+authority check, the ratchet moves into the supervisor. Re-
+quiring root approval for every case eliminates the delegated-
+discretion setting rather than solving the case-to-rule transi-
+tion.
+Use multiple agents or majority vote. V oting changes who
+interprets the case, not what gives the interpretation rulemak-
+ing authority. Shared training, memory, or success history can
+also correlate the judges.
+Treat prior successful exceptions as precedent. This is
+the vulnerability. A prior case proves that the prior case
+was admitted and worked. It does not prove that a broader
+predicate was delegated.
+Automatically revise the norm from runtime data. This
+is valid when an explicit norm-revision component is autho-
+rized [3, 4]. Our threat model is precisely the case where
+the learner lacks that power. Authorized revision remains
+available through AMEND.
+Use a restraining bolt. Restraining bolts constrain learned
+behavior [5, 7]. PRECEDENT GUARD addresses an orthogonal
+transition: a defeasible norm requires exception semantics,
+and the security question is whether learning may broaden the
+exception predicate. A restraining-bolt implementation could
+use PRECEDENT GUARD as its authority layer for exception
+updates.
+10
+=== PAGE 11 ===
+10. Discussion
+10.1 Adjudication is not rulemaking
+The useful separation is Execution ̸= Adjudication ̸=
+Rulemaking. The first performs an action; the second decides
+whether one concrete deviation is justified; the third changes
+what future cases may be admitted without fresh adjudication.
+Learning makes this separation technically necessary when-
+ever an adjudicated case can enter persistent memory or policy
+state and later influence a broader authorization decision with-
+out an explicit rulemaking transition. The security boundary
+is constitutional rather than application-specific: possession
+of a lower power does not imply possession of the higher one.
+10.2 Structural applicability, not universal prevalence
+The formal security object is the transition from a valid case
+exception to standing reusable authority. A deployment falls
+within our intended class when it has the four structural prop-
+erties in Section 3: defeasible norms, bounded case discretion,
+persistent experience reuse, and a separation between adjudi-
+cation and rulemaking authority. The learner implementation
+is deliberately abstract—it may be neural, retrieval-based,
+symbolic, or adversarial—so the confinement result does not
+depend on a particular physical or software domain. Intermit-
+tent root availability is one reason to delegate case discretion,
+but it is not part of the exception-ratcheting definition.
+Structural applicability should not be confused with empiri-
+cal prevalence. Our theorem says what must remain confined
+if such a system reuses successful exceptions; it does not
+establish that every deployed learning agent, or every current
+LLM agent, frequently exhibits exception ratcheting. That
+measurement remains a separate empirical question, as stated
+in Section 11.
+10.3 Positive feedback and normalization
+Operational learning sees many successes and comparatively
+few catastrophic failures. For high-consequence systems, the
+first strong negative example may be the irreversible event
+the norm was meant to prevent. This asymmetry is why prior
+success is poor authority evidence. NASA’s normalization-of-
+deviance guidance makes the same point for human organi-
+zations [8]; PRECEDENT GUARD translates it into a machine-
+enforceable separation between outcome evidence and norma-
+tive evidence.
+10.4 What may be learned from an exception?
+Almost everything operational: a better actuator sequence,
+faster diagnosis, improved resource prediction, or a candi-
+date reusable rule. The only restriction is on the transition
+from learned representation to standing normative authority
+(Theorem 3).
+10.5 Precedent is useful
+Our precedent is deliberately machine-checkable. A certified
+precedent is not “past success therefore permission.” It is a
+cached proof that a reusable sufficient condition is already
+inside the root-authored discretion contract. It accelerates
+recurring cases without creating new law.
+10.6 Multiple norms and conflicts
+See (T4) in Section 3. Ordered normative restraining bolts
+provide one approach to prioritized compliance [7]. PRECE -
+DENT GUARD is applied after conflict resolution selects a
+candidate deviation, or the root envelope can be vector-valued;
+our prototype and evaluation isolate one norm at a time to
+study ratcheting in a controlled setting, leaving an empirical
+multi-norm evaluation to future work.
+11. Limitations
+Formalizable discretion. PRECEDENT GUARD assumes the
+root can express a conservative machine-checkable upper
+bound on local discretion. Some moral or social judgments
+cannot be captured faithfully. Such deployments may need
+coarse tiers or remote authority when available.
+Current evidence can be wrong. As stated explicitly
+in (T1), the system prevents success history from becoming
+unauthorized rulemaking authority; it does not solve sensor
+compromise, false evidence, or semantic misclassification of
+the current situation. This is a distinct threat from exception
+ratcheting and requires a separate evidence-integrity mech-
+anism (e.g., attested sensing, independent cross-checks) to
+address.
+Counterfactual models are incomplete. A challenger
+proves necessity only relative to its declared model. Section 8
+now quantifies how over-approximation trades off against con-
+servative rejection; an unsound (under-approximating) model,
+rather than merely conservative one, would undermine the
+safety guarantee, and Assumption 5 requires soundness be
+established separately for any deployedMc.
+Structural generality is not an empirical prevalence
+claim. The learner in every experiment in this paper is an
+adversarial generalizer, not a trained model. This strengthens
+the mechanism guarantee (it is a worst-case argument) and
+shows that the confinement proof is not tied to one learner
+implementation, but it does not measure how frequently, or un-
+der what prompting/memory conditions, current LLM agents
+actually exhibit exception-ratcheting-like generalization in
+practice. An earlier internal discussion of this paper’s revi-
+sions proposed adding a qualitative case study with a real
+learning agent (e.g., comparing a history-reuse baseline, an
+LLM-judge baseline, and PRECEDENT GUARD on a repeated-
+success workload). We did not include that case study in this
+version: producing it honestly requires actually instrumenting
+and observing a real learning agent’s behavior over a repeated-
+success workload, which is a measurement exercise distinct
+from, and not derivable from, the formal and enumerative
+11
+=== PAGE 12 ===
+results in this paper. We report its absence here explicitly
+rather than presenting simulated or assumed agent behavior
+as if it were observational data, and we leave it as concrete
+future work.
+Authorized self-government is different. Some systems
+may intentionally delegate norm revision to local agents. Then
+the correct object is an explicit AMEND capability with
+bounded scope and accountability, not an implicit success-
+to-rule path.
+12. Related Work
+Normative multi-agent systems. Oren et al. formalize nor-
+mative power [ 1]; Roshankish and Fornara formalize rich
+norm types, exceptions, and powers [ 2]; Morris-Martin et
+al. survey norm emergence and bottom-up formation [ 12].
+PRECEDENT GUARD treats unauthorized bottom-up standing-
+rule formation as a security violation when no rulemaking
+power was delegated.
+Runtime norm revision. Dell’Anna et al. use execution
+data and agent preferences to revise sanctions at runtime [3, 4].
+Their revision is explicit and intentional. Our problem is de
+facto revision produced by ordinary learning when the learner
+lacks normative revision authority.
+Safe and normative learning. Restraining-bolt work
+separates authority-specified temporal constraints from a
+reinforcement-learning agent [5, 6]. Normative and ordered
+variants target legal/social/ethical compliance and hierarchical
+norm violation [ 7, 13]. Our typed precedent layer governs
+how a defeasible exception may become reusable.
+Reference monitoring and proof-carrying authority.
+Least privilege and execution monitoring motivate moving
+security decisions outside untrusted code [ 9, 10]. Proof-
+carrying authentication requires evidence supporting autho-
+rization [14]; proof-carrying agent actions extend this idea to
+agent runtime governance [15]. PRECEDENT GUARD applies
+proof-carrying design to normative generalization rather than
+only current action authorization.
+Normalization of deviance. NASA safety guidance warns
+that repeated successful deviation can normalize unsafe prac-
+tice and cautions against using past success to redefine accept-
+able performance [8]. We translate that lesson into a formal
+learning-system boundary: success may update competence
+but not normative authority.
+13. Conclusion
+A learning system can be authorized to interpret a rule without
+being authorized to rewrite it. Exception ratcheting appears
+when that distinction is lost: a valid case succeeds, success
+becomes learning signal, and the learned pattern is later treated
+as standing authority even though no rulemaking transition
+occurred.
+PRECEDENT GUARD makes the missing separation explicit.
+A CASE is one adjudication; a PRECEDENT is reusable author-
+ity that must independently prove containment in the current
+root envelope; an AMEND object is the only operation that
+may widen that envelope. The confinement theorem is agnos-
+tic to how aggressively the learner generalizes and to whether
+the containment verifier is monotone or non-monotone. Oper-
+ational learning may therefore become faster, richer, and more
+reusable without silently acquiring constitutional power.
+A case may teach the system. It may not legislate.
+That is the boundary this paper enforces: autonomous discre-
+tion without autonomous legislation.
+Ethics Considerations
+This work evaluates a synthetic security model, two
+containment-verifier implementations, and local enumera-
+tive/simulated experiments. It does not involve human sub-
+jects, private datasets, deployed autonomous equipment, or
+interaction with external systems.
+We nonetheless note a dual-use consideration specific to
+this mechanism. PRECEDENT GUARD is designed to prevent
+operational success from becoming unauthorized normative
+authority; it cannot make an unsafe root envelope safe, and it
+cannot validate fraudulent context evidence (T1). A malicious
+root, or a compromised evidence pipeline able to fabricate
+thee that a CASE or PRECEDENT proof is checked against,
+could use formally valid CASE/PRECEDENT objects to le-
+gitimize discretion that should not have been granted. Those
+attacks are explicitly outside our TCB assumptions (Section 3),
+and we state them here rather than leaving the mechanism’s
+authority guarantee to be mistaken for an evidence-integrity
+or root-trustworthiness guarantee it does not provide.
+References
+[1] N. Oren, M. Luck, and S. Miles, “A model of normative
+power,” in Proc. 9th Int. Conf. on Autonomous Agents
+and Multiagent Systems. IFAAMAS, 2010, pp. 815–822.
+[2] S. Roshankish and N. Fornara, “How to formalize differ-
+ent types of norms in multi-agent systems: A method-
+ology focused on the t-norm model,” SN Computer Sci-
+ence, vol. 5, no. 749, 2024.
+[3] D. Dell’Anna, M. Dastani, and F. Dalpiaz, “Runtime
+revision of norms and sanctions based on agent prefer-
+ences,” in Proc. 18th Int. Conf. on Autonomous Agents
+and MultiAgent Systems. IFAAMAS, 2019, pp. 1609–
+1617.
+[4] D. Dell’Anna, M. Dastani, and F. Dalpiaz, “Runtime
+revision of sanctions in normative multi-agent systems,”
+Autonomous Agents and Multi-Agent Systems, vol. 34,
+no. 43, 2020.
+[5] G. De Giacomo, L. Iocchi, M. Favorito, and F. Patrizi,
+“Foundations for restraining bolts: Reinforcement learn-
+ing with LTLf/LDLf restraining specifications,” inProc.
+12
+=== PAGE 13 ===
+29th Int. Conf. on Automated Planning and Scheduling,
+vol. 29, 2019, pp. 128–136.
+[6] G. De Giacomo, M. Favorito, L. Iocchi, and F. Patrizi,
+“Restraining bolts for reinforcement learning agents,” in
+Proc. 34th AAAI Conf. on Artificial Intelligence, 2020,
+pp. 13659–13662.
+[7] E. A. Neufeld, A. Ciabattoni, and R. F. Tulcan, “Com-
+bining MORL with restraining bolts to learn normative
+behaviour,” in Proc. 34th Int. Joint Conf. on Artificial
+Intelligence, 2025, pp. 4615–4623.
+[8] National Aeronautics and Space Administration, “The
+cost of silence: Normalization of deviance and group-
+think,” NASA Safety and Mission Assurance, Tech. Rep.,
+Nov. 2014.
+[9] J. H. Saltzer and M. D. Schroeder, “The protection of
+information in computer systems,” Proc. IEEE, vol. 63,
+no. 9, pp. 1278–1308, 1975.
+[10] F. B. Schneider, “Enforceable security policies,” ACM
+Trans. Inf. Syst. Secur., vol. 3, no. 1, pp. 30–50, 2000.
+[11] J. Park and R. Sandhu, “The UCONABC usage control
+model,” ACM Trans. Inf. Syst. Secur., vol. 7, no. 1, pp.
+128–174, 2004.
+[12] A. Morris-Martin, M. De V os, and J. Padget, “Norm
+emergence in multiagent systems: A viewpoint paper,”
+Autonomous Agents and Multi-Agent Systems, vol. 33,
+pp. 706–749, 2019.
+[13] E. A. Neufeld, A. Ciabattoni, and R. F. Tulcan, “Norm
+compliance in reinforcement learning agents via restrain-
+ing bolts,” Legal Knowledge and Information Systems:
+JURIX 2024, 2024.
+[14] A. W. Appel and E. W. Felten, “Proof-carrying authen-
+tication,” in Proc. 6th ACM Conf. on Computer and
+Communications Security, 1999, pp. 52–62.
+[15] Z. Wang, “Proof-carrying agent actions: Model-agnostic
+runtime governance for heterogeneous agent systems,”
+arXiv:2606.04104, 2026.
+A. Bounded Stress-Test Models
+DSL-A. The root envelope used by the artifact isD(u,a,r ) =
+min(4,⌊(u +a + 2r)/4⌋), withu,a∈ [0, 7] andr∈{ 0, 1}.
+The initial reusable rule is u ≥ 6,a ≥ 6,r = 1,d ≤ 3.
+Each success allows the generalizer to propose one of five
+transitions: decrement urgency, decrement alternative scarcity,
+drop reversibility, increment maximum deviation, or remain
+unchanged. Since D is monotone, containment reduces to
+evaluating the rule’s least-favorable point.
+DSL-B. The root envelope is DB = ( smoke ∧
+pressureStable∧ tox≤ 6)∨ (evac∧ backupVent∧ tox≤
+8), with boolean evidence variables and tox ∈ [0, 10].
+The initial reusable rule is the single clause smoke =
+1, pressureStable = 1, tox≤ 3. Each success allows the gen-
+eralizer to propose one of five transitions: raise the clause’s
+toxicity bound by one, drop the smoke requirement, drop
+the pressure-stable requirement, add a second clause exactly
+matching the evacuation branch ( evac = 1, backupVent =
+1, tox≤ 8), or remain unchanged. BecauseDB is not mono-
+tone, containment is decided by exhaustive enumeration over
+the full 176-point bounded evidence domain per clause, rather
+than at a single least-favorable point.
+Both the history-reuse baseline (installs every proposal un-
+conditionally) and PRECEDENT GUARD (installs a proposal
+only if it passes the respective containment check) are run
+over all histories up to the stated length, exhaustively for both
+DSLs.
+B. Artifact and Reproducibility Notes
+All numbers reported in Section 8 were produced by five self-
+contained Python scripts (no network or GPU dependency):
+(1) DSL-A sampling-sensitivity, (2) DSL-B exhaustive stress
+test and sampling-sensitivity, (3) challenger conservatism
+sweep over synthetic mission DAGs (25–55 nodes, fixed seed),
+(4) bounded-challenger load simulation (single-queue-with-
+budget model, service times drawn from a lognormal fit to
+the measured Table 7 quantiles), and (5) an adversarial 20×
+overload flood using the same queueing model. The ratchet-
+ing experiments (DSL-A and DSL-B) are exhaustive for their
+stated models; the DAG and load experiments use fixed pseu-
+dorandom seeds. As discussed in Section 11, no experiment
+in this artifact involves a trained or deployed LLM agent; all
+“learners” are adversarial generalizers or, in the DoS simula-
+tion, a synthetic Poisson/queueing request stream. The paper’s
+security claims are conditional on the stated enforcement as-
+sumptions, not on a measured likelihood of a specific model’s
+behavior.
+13

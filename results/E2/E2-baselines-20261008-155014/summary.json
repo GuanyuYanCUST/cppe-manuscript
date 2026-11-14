@@ -1,0 +1,5489 @@
+{
+  "run_id": "E2-baselines-20261008-155014",
+  "matrix": {
+    "seeds": 10,
+    "domains": [
+      "cloudops",
+      "procurement",
+      "finance",
+      "dataaccess"
+    ],
+    "channels": [
+      "episodic",
+      "vector_rag",
+      "skill_consolidation",
+      "policy_distillation"
+    ],
+    "k_values": [
+      0,
+      1,
+      3,
+      5,
+      10
+    ],
+    "methods": [
+      "B0",
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "B6",
+      "PG"
+    ],
+    "cells": 800,
+    "fork_executions": 12800,
+    "elapsed_s": 9.9
+  },
+  "model_note": "MockModelAdapter (deterministic); the candidate is designated by the fork, the model supplies channel gating only.  Real-model candidates = approved LLM phase.  E4 model aggregation is degenerate offline (single mock model).",
+  "unit": "cell = seed x domain x channel x k (one attempt per fork; attempt-level == cell-level by construction)",
+  "by_method": {
+    "B0": {
+      "desc": "strict/immutable policy store",
+      "UIR": {
+        "k": 0,
+        "n": 0,
+        "rate": null,
+        "na": true,
+        "wilson_lo": null,
+        "wilson_hi": null,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 0,
+        "n": 800,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0048,
+        "cp_upper_if_zero": 0.0046
+      },
+      "VPA": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "FRR": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B1": {
+      "desc": "success-reuse (worked-before -> install)",
+      "UIR": {
+        "k": 1200,
+        "n": 1200,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9968,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 600,
+        "n": 800,
+        "rate": 0.75,
+        "na": false,
+        "wilson_lo": 0.7188,
+        "wilson_hi": 0.7788,
+        "cp_upper_if_zero": null
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B2": {
+      "desc": "provenance-only (signed history suffices)",
+      "UIR": {
+        "k": 1200,
+        "n": 1200,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9968,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 600,
+        "n": 800,
+        "rate": 0.75,
+        "na": false,
+        "wilson_lo": 0.7188,
+        "wilson_hi": 0.7788,
+        "cp_upper_if_zero": null
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B3": {
+      "desc": "root-aware judge (mock: containment-only, no typed authority)",
+      "UIR": {
+        "k": 600,
+        "n": 1200,
+        "rate": 0.5,
+        "na": false,
+        "wilson_lo": 0.4718,
+        "wilson_hi": 0.5282,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 0,
+        "n": 800,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0048,
+        "cp_upper_if_zero": 0.0046
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B4": {
+      "desc": "scoped CASE + expiry, learner write channel",
+      "UIR": {
+        "k": 1200,
+        "n": 1200,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9968,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 600,
+        "n": 800,
+        "rate": 0.75,
+        "na": false,
+        "wilson_lo": 0.7188,
+        "wilson_hi": 0.7788,
+        "cp_upper_if_zero": null
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B5": {
+      "desc": "action-level authorizer (rules never serve)",
+      "UIR": {
+        "k": 1200,
+        "n": 1200,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9968,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 0,
+        "n": 800,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0048,
+        "cp_upper_if_zero": 0.0046
+      },
+      "VPA": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "B6": {
+      "desc": "exact signed event sourcing",
+      "UIR": {
+        "k": 1200,
+        "n": 1200,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9968,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "UER": {
+        "k": 600,
+        "n": 800,
+        "rate": 0.75,
+        "na": false,
+        "wilson_lo": 0.7188,
+        "wilson_hi": 0.7788,
+        "cp_upper_if_zero": null
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    },
+    "PG": {
+      "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+      "UIR": {
+        "k": 0,
+        "n": 1200,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0032,
+        "cp_upper_if_zero": 0.0031
+      },
+      "UER": {
+        "k": 0,
+        "n": 800,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0048,
+        "cp_upper_if_zero": 0.0046
+      },
+      "VPA": {
+        "k": 600,
+        "n": 600,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9936,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      },
+      "FRR": {
+        "k": 0,
+        "n": 600,
+        "rate": 0.0,
+        "na": false,
+        "wilson_lo": 0.0,
+        "wilson_hi": 0.0064,
+        "cp_upper_if_zero": 0.0061
+      },
+      "ATC": {
+        "k": 800,
+        "n": 800,
+        "rate": 1.0,
+        "na": false,
+        "wilson_lo": 0.9952,
+        "wilson_hi": 1.0,
+        "cp_upper_if_zero": null
+      }
+    }
+  },
+  "by_method_k": {
+    "k0": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "k1": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "FRR": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 160,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6776,
+          "wilson_hi": 0.8107,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 160,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6776,
+          "wilson_hi": 0.8107,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 120,
+          "n": 240,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4372,
+          "wilson_hi": 0.5628,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 160,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6776,
+          "wilson_hi": 0.8107,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 160,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6776,
+          "wilson_hi": 0.8107,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 240,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0158,
+          "cp_upper_if_zero": 0.0153
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "k3": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "k5": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "k10": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    }
+  },
+  "by_method_domain": {
+    "cloudops": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 150,
+          "n": 300,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4438,
+          "wilson_hi": 0.5562,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 300,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0126,
+          "cp_upper_if_zero": 0.0122
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "procurement": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 150,
+          "n": 300,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4438,
+          "wilson_hi": 0.5562,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 300,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0126,
+          "cp_upper_if_zero": 0.0122
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "finance": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 150,
+          "n": 300,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4438,
+          "wilson_hi": 0.5562,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 300,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0126,
+          "cp_upper_if_zero": 0.0122
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "dataaccess": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 150,
+          "n": 300,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4438,
+          "wilson_hi": 0.5562,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 300,
+          "n": 300,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9874,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 150,
+          "n": 200,
+          "rate": 0.75,
+          "na": false,
+          "wilson_lo": 0.6857,
+          "wilson_hi": 0.8049,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 300,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0126,
+          "cp_upper_if_zero": 0.0122
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 150,
+          "n": 150,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.975,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 150,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.025,
+          "cp_upper_if_zero": 0.0243
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    }
+  },
+  "by_method_channel": {
+    "episodic": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "vector_rag": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "skill_consolidation": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "FRR": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 200,
+          "rate": 0.6,
+          "na": false,
+          "wilson_lo": 0.5308,
+          "wilson_hi": 0.6654,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 200,
+          "rate": 0.6,
+          "na": false,
+          "wilson_lo": 0.5308,
+          "wilson_hi": 0.6654,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 120,
+          "n": 240,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4372,
+          "wilson_hi": 0.5628,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 200,
+          "rate": 0.6,
+          "na": false,
+          "wilson_lo": 0.5308,
+          "wilson_hi": 0.6654,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 240,
+          "n": 240,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9842,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 120,
+          "n": 200,
+          "rate": 0.6,
+          "na": false,
+          "wilson_lo": 0.5308,
+          "wilson_hi": 0.6654,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 240,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0158,
+          "cp_upper_if_zero": 0.0153
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 120,
+          "n": 120,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.969,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 120,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.031,
+          "cp_upper_if_zero": 0.0303
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    },
+    "policy_distillation": {
+      "B0": {
+        "desc": "strict/immutable policy store",
+        "UIR": {
+          "k": 0,
+          "n": 0,
+          "rate": null,
+          "na": true,
+          "wilson_lo": null,
+          "wilson_hi": null,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B1": {
+        "desc": "success-reuse (worked-before -> install)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B2": {
+        "desc": "provenance-only (signed history suffices)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B3": {
+        "desc": "root-aware judge (mock: containment-only, no typed authority)",
+        "UIR": {
+          "k": 160,
+          "n": 320,
+          "rate": 0.5,
+          "na": false,
+          "wilson_lo": 0.4455,
+          "wilson_hi": 0.5545,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B4": {
+        "desc": "scoped CASE + expiry, learner write channel",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B5": {
+        "desc": "action-level authorizer (rules never serve)",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "B6": {
+        "desc": "exact signed event sourcing",
+        "UIR": {
+          "k": 320,
+          "n": 320,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9881,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "UER": {
+          "k": 160,
+          "n": 200,
+          "rate": 0.8,
+          "na": false,
+          "wilson_lo": 0.7391,
+          "wilson_hi": 0.8495,
+          "cp_upper_if_zero": null
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      },
+      "PG": {
+        "desc": "PRECEDENTGUARD (typed cap + containment + CAS)",
+        "UIR": {
+          "k": 0,
+          "n": 320,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0119,
+          "cp_upper_if_zero": 0.0115
+        },
+        "UER": {
+          "k": 0,
+          "n": 200,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0188,
+          "cp_upper_if_zero": 0.0183
+        },
+        "VPA": {
+          "k": 160,
+          "n": 160,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9766,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        },
+        "FRR": {
+          "k": 0,
+          "n": 160,
+          "rate": 0.0,
+          "na": false,
+          "wilson_lo": 0.0,
+          "wilson_hi": 0.0234,
+          "cp_upper_if_zero": 0.0228
+        },
+        "ATC": {
+          "k": 200,
+          "n": 200,
+          "rate": 1.0,
+          "na": false,
+          "wilson_lo": 0.9812,
+          "wilson_hi": 1.0,
+          "cp_upper_if_zero": null
+        }
+      }
+    }
+  },
+  "expected_pattern": {
+    "PG": {
+      "expected": {
+        "UIR": 0.0,
+        "UER": 0.0,
+        "VPA": 1.0,
+        "FRR": 0.0
+      },
+      "match": true,
+      "diffs": {}
+    },
+    "B0": {
+      "expected": {
+        "UER": 0.0,
+        "VPA": 0.0,
+        "FRR": 1.0
+      },
+      "match": true,
+      "diffs": {}
+    },
+    "B3": {
+      "expected": {
+        "UER": 0.0,
+        "VPA": 1.0,
+        "FRR": 0.0
+      },
+      "match": true,
+      "diffs": {}
+    },
+    "B5": {
+      "expected": {
+        "UER": 0.0,
+        "VPA": 0.0,
+        "FRR": 0.0
+      },
+      "match": true,
+      "diffs": {}
+    }
+  }
+}

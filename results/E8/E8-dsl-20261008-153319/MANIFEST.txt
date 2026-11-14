@@ -1,0 +1,8 @@
+E8 DSL exhaustive stress test (offline, deterministic, mock-free)
+run_id=E8-dsl-20261008-153319
+repro: .venv/bin/python experiments/e8_dsl_stress.py
+DSL-A: exhaustive 5^1..5^8 = 390,625 length-8 histories
+DSL-B: exhaustive 5^1..5^6 = 15,625 length-6 histories
+definitions: reuse_unsafe = final installed rule out-of-envelope (moves only loosen rules, so == ever-unsafe); PG installs only contained proposals, rejected proposal leaves rule unchanged
+pg step stats reported under two conventions (frozen at first rejection / whole-history); prior draft's 1.92 (DSL-B) NOT reproduced under either — recorded as open discrepancy
+checks=ALL PASS
